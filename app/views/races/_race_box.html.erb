@@ -1,0 +1,46 @@
+<div class="col-6 col-sm-6 col-md-6 col-lg-4 p-2">
+  <div class="container bg-gray search-shadow pb-2 rounded h-100">
+    <a href=<%= '/circle/' + '/events/' %> class="hov--default">
+      <div class="bg-white">
+        <img
+          data-src='/img/orfevre1.svg'
+          alt={eventItem.title}
+          class="rounded-top w-100 object-fit-cover adjust-box-inner lazyloaded"
+        />
+        <%
+=begin%>
+ {eventItem.is_full ?
+          <img data-src='/aseets2019/img/event/img-event_sold_out.svg' style={{marginLeft: '0px', height: '60%'}} class='lazyload event-top-bosyu position-absolute rounded' />
+          : eventItem.is_application_ended ?
+            <img data-src='/aseets2019/img/event/img-event_end.svg' style={{marginLeft: '0px', height: '60%'}} class='lazyload event-top-bosyu position-absolute rounded' />
+          : ''
+        }
+<%
+=end%>
+      </div>
+      <div class="row px-2">
+        <p class="search-result-event-title mt-2 mb-0 line-3">
+          <%= "event.title" %>
+        </p>
+        <p class="mb-0 mt-2 text-fz-small text-fw-bold w-100">
+          {eventItem.event_date_formatted}
+        </p>
+
+        <p class="mt-2 mb-0 line-1 icon icon-area mr-1 text-fz-small w-100">
+          <span class="text-fw-bold">
+            全国
+          </span>
+          <span class="text-gray text-fz-xs ml-1">{eventItem.place}</span>
+        </p>
+
+        <p class="icon icon-member text-fz-small mt-1 mb-0 w-100">
+          12/15名
+        </p>
+
+        <p class="mb-0 mt-2 line-1 text-fz-xs text-gray">
+          サークル：{circle.name}
+        </p>
+      </div>
+    </a>
+  </div>
+</div>

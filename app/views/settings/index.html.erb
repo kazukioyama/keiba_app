@@ -1,0 +1,11 @@
+<div class="bg-white shadow-sm">
+  <div class="container col-lg-8 p-0">
+    <ul class="nav flex-column">
+      <li class="nav-item p-3"><%= link_to 'プロフィール設定', "/ss", class: 'nav-link text-dark p-0 line-height-2  text-fz-18px' %></li>
+      <li class="nav-item p-3"><%= link_to '種牡馬登録', "/ss", class: 'nav-link text-dark p-0 line-height-2  text-fz-18px' %></li>
+      <li class="nav-item p-3"><%= link_to '競走馬登録', "/ss", class: 'nav-link text-dark p-0 line-height-2  text-fz-18px' %></li>
+      <li class="nav-item p-3"><a href="/inquiry" class="nav-link text-dark p-0 line-height-2  text-fz-18px">お問い合わせ・ご要望</a></li>
+      <li class="nav-item p-3"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link text-dark p-0 line-height-2 text-fz-18px' %></li>
+    </ul>
+  </div>
+</div>

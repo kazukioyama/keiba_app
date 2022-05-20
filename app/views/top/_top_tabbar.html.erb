@@ -1,0 +1,52 @@
+<% if controller.controller_name == 'main_genres' || controller.controller_name == 'sub_genres' %>
+  <% active = params[:main_genre_key] %>
+<% elsif controller.controller_name == 'circle' && controller.action_name == 'search' && params[:event_condition] != 'circle' %>
+  <% active = 'search' %>
+<% elsif controller.controller_name == 'circle' && controller.action_name == 'search' && params[:event_condition] == 'circle' %>
+  <% active = 'circle' %>
+<% elsif controller.controller_name == 'nightwalk' %>
+  <% active = 'nightwalk' %>
+<% elsif controller.controller_name == 'feeds' %>
+  <% active = 'feeds' %>
+<% else %>
+  <% active = 'home' %>
+<% end %>
+
+<% if !@is_hidden_top_tabbar %>
+  <div class="nav_top__tabbar2 d-none d-md-block">
+    <div class="container col-lg-8 mb-0">
+      <ul class="list-unstyled d-flex scrollable-list mb-0">
+        <li class="text-center"><p><a class="top__tabbar2<%= active == 'search' ? ' active' : '' %>" href="/" style="color: #616161;">ホーム</a></p></li>
+        <li class="text-center"><a class="top__tabbar2<%= active == 'sportsactivity' ? ' active' : '' %>" href="/races/search" style="color: #616161;">今日のレース</a></li>
+        <li class="text-center"><p><a class="top__tabbar2<%= active == 'outings' ? ' active' : '' %>" href="/outings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">過去のレース</a></p></li>
+        <li class="text-center"><p><a class="top__tabbar2<%= active == 'eatings' ? ' active' : '' %>" href="/eatings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">買いレース</a></p></li>
+        <li class="text-cente"><p><a class="top__tabbar2<%= active == 'playings' ? ' active' : '' %>" href="/playings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">競走馬一覧</a></p></li>
+        <li class="text-center"><p><a class="top__tabbar2<%= active == 'talkings' ? ' active' : '' %>" href="/talkings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">種牡馬一覧</a></p></li>
+        <li class="text-center"><p><a class="top__tabbar2<%= active == 'talkings' ? ' active' : '' %>" href="/talkings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">メッセージ</a></p></li>
+        <li class="text-center"><p><a class="top__tabbar2<%= active == 'creatings' ? ' active' : '' %>" href="/settings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">設定</a></p></li>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<%
+=begin%>
+ <div class="nav_top__tabbar d-block d-md-none">
+  <div class="container col-lg-8 mb-0">
+    <ul class="list-unstyled d-flex scrollable-list mb-0">
+      <li class="text-center top__tabbar px-2<%= active == 'home' ? ' active' : '' %>"><p><a href="/">ホーム</a></p></li>
+      <li class="text-center top__tabbar px-2<%= active == 'search' ? ' active' : '' %>"><p><a href="/search">イベント</a></p></li>
+      <li class="text-center top__tabbar px-2<%= active == 'tunagate-official' ? ' active' : '' %>"><p><a href="/tunagate-official<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">公式イベント</a></p></li>
+      <li class="text-center top__tabbar px-2<%= active == 'circle' ? ' active' : '' %>"><p><a href="/search/<%= @my_pref.present? ? @my_pref.pref_key : 'all' %>?event_condition=circle">メンバー募集</a></p></li>
+
+      <li class="text-center top__tabbar px-2<%= active == 'sportsactivity' ? ' active' : '' %>"><p><a href="/sportsactivity<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">体をうごかす</a></p></li>
+      <li class="text-center top__tabbar px-2<%= active == 'outings' ? ' active' : '' %>"><p><a href="/outings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">みんなで行く</a></p></li>
+      <li class="text-center top__tabbar px-2<%= active == 'eatings' ? ' active' : '' %>"><p><a href="/eatings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">みんなで食べる</a></p></li>
+      <li class="text-center top__tabbar px-2<%= active == 'creatings' ? ' active' : '' %>"><p><a href="/creatings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">みんなで創る</a></p></li>
+      <li class="text-center top__tabbar px-2<%= active == 'playings' ? ' active' : '' %>"><p><a href="/playings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">みんなで遊ぶ</a></p></li>
+      <li class="text-center top__tabbar px-2<%= active == 'talkings' ? ' active' : '' %>"><p><a href="/talkings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">みんなで語る</a></p></li>
+    </ul>
+  </div>
+</div> 
+<%
+=end%>

@@ -1,0 +1,2 @@
+class StalionsController < ApplicationController
+end

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KeibaApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <%= render 'header' %>
+    <%= render partial: 'top/top_tabbar' %>
+    <%
+=begin%>
+ <% if flash[:notice] %>
+      <p>Notice: <%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p>Alert: <%= flash[:alert] %></p>
+    <% end %> 
+<%
+=end%>
+    <%= yield %>
+    <%= render 'footer' %>
+  </body>
+</html>

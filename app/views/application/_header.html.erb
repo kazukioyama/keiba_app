@@ -1,0 +1,169 @@
+<header id="header" class="sticky-top bg-white">
+
+  <div class="container col-lg-8">
+    <div class="header-logo d-flex">
+      <a href="/">
+        <img src="/img/nagoya-keiba-logo.svg" class="logo-img">
+      </a>
+    </div>
+
+    <div class="navbar-toggler d-none d-md-block position-absolute position--header-left p-0" style="margin-top: -2px;">
+      <ul class="d-flex">
+        <li class="mr-2 list-unstyled">
+          <a href="/races" class="header-btn">
+          今日のレース</a>
+        </li>
+        <li class="mr-2 list-unstyled">
+          <a href="/tunagate-official" class="header-btn">
+          過去レース一覧</a>
+        </li>
+      </ul>
+    </div>
+  <% if !user_signed_in? %>
+    <div class="navbar-toggler position-absolute position--header-right p-0" style="margin-top: -2px;">
+      <ul class="d-flex">
+        <li class="mr-2 list-unstyled d-none position-relative">
+          <%= form_tag("/search/all", :method => 'get') do %>
+            <img src="/aseets/search-icon.svg" alt="" class="position-absolute position--header-search-icon">
+            <%= text_field_tag :keyword, '', class: 'header-search-form', placeholder: "サークル・イベントを探す" %>
+          <% end %>
+        </li>
+        <% if request.path.match(/^\/users\//) # ログイン画面・新規登録画面へリダイレクトしない %>
+          <li class="mr-2 list-unstyled" style="line-height: 35px;">
+            <a href="/users/sign_in" class="header-login-btn">
+            ログイン</a>
+          </li>
+          <li class="mr-0 list-unstyled" style="line-height: 35px;">
+            <a href="/users/sign_up" class="header-signup-btn">新規登録</a>
+          </li>
+        <% else %>
+          <li class="mr-2 list-unstyled" style="line-height: 35px;">
+            <a href="/users/sign_in?rurl=<%= CGI.escape(request.fullpath) %>" class="header-login-btn">ログイン</a>
+          </li>
+          <li class="mr-0 list-unstyled" style="line-height: 35px;">
+            <a href="/users/sign_up?rurl=<%= CGI.escape(request.fullpath) %>" class="header-signup-btn">新規会員登録</a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+ <% else %>
+      <div class="navbar-toggler position-absolute position--header-right p-0" style="margin-top: -2px;">
+        <ul class="d-flex">
+          <%
+=begin%>
+ <li class="mr-2 list-unstyled d-none position-relative">
+            <%= form_tag("/search", :method => 'get') do %>
+              <img src="/aseets2019/search-icon.svg" alt="" class="position-absolute position--headersearchicon">
+              <%= text_field_tag :keyword, '', class: 'header-search-form', placeholder: "サークル・イベントを探す" %>
+            <% end %>
+          </li>
+          <li class="mr-3 list-unstyled d-block d-xl-none" style="line-height: 35px;">
+            <%= link_to image_tag("/aseets2019/search-icon.svg"), "/search" %>
+          </li> 
+<%
+=end%>
+          <li class="mr-2 list-unstyled" style="line-height: 35px;">
+            <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'header-btn' %>
+          </li>
+          <%
+=begin%>
+ <li class="mr-2 list-unstyled position-relative" style="line-height: 35px;">
+            <%= link_to image_tag("/aseets2019/header-notification.svg", size: '18x18', class: 'mr-2', style: 'object-fit: cover;'), "/notifications" %>
+            <span id="badge_unread_message_count_notification" class="badge-notification-replacement"></span>
+          </li> 
+<%
+=end%>
+          <%
+=begin%>
+ <li class="mr-2 list-unstyled" style="line-height: 35px;">
+            <%= link_to image_tag(current_user.avatar_medium, size: '32x32', class: 'rounded-circle', style: 'object-fit: cover;'), "/menu" %>
+          </li> 
+<%
+=end%>
+          <li class="list-unstyled" style="line-height: 35px;">
+            <% if controller.controller_name == 'member' && controller.action_name == 'profile' && user_signed_in? && current_user.id == @user&.id %>
+              <%# 【１】ユーザープロフィールページが自分のものなら編集ボタンをつける %>
+              <a href="/users/edit" class="ml-2 text-black-20 text-fz-14px">編集</a>
+            <% elsif controller.controller_name == 'member' && controller.action_name == 'profile' && user_signed_in? && current_user.id != @user&.id && current_user.can_report_user(@user&.id) %>
+              <%# 【２】ユーザープロフィールページが他人のものならメニューボタンをつける %>
+              <a href="/member/<%= params[:member_id] %>/report_to_administrator_menu" class="ml-2 text-black-20 text-fz-18px"><img src="/aseets2019/img/icon_reader.svg" alt=""></a>
+            <% elsif controller.controller_name == 'circle' && user_signed_in? && @my_member_type == 1 %>
+              <%# 【３】自分の所属するサークルページならメニューボタンをつける %>
+              <a href="/my_circle/<%= @circle.id %>/circle_menu" class="ml-2 text-black-20 text-fz-18px"><i class="fas fa-bars"></i></a>
+            <% elsif controller.controller_name == 'circle' && controller.action_name == 'profile' && user_signed_in? && @my_member_type != 1 && current_user.can_report_circle(@circle.id) %>
+              <%# 【４】自分が所属していないサークルページなら通報できるメニューボタンをつける %>
+              <a href="/circle/<%= @circle.id %>/report_to_administrator_menu" class="ml-2 text-black-20 text-fz-18px"><img src="/aseets2019/img/icon_reader.svg" alt=""></a>
+            <% elsif controller.controller_name == 'events_details' && (controller.action_name == 'show' || controller.action_name == 'invite') && user_signed_in? && (@is_member_event_create_enable || @is_manager || (@event.semi_official_status && @event.create_user_id == current_user.id))  %>
+              <%# 【５】自分が管理人、もしくは編集権限のあるイベントならイベント編集ボタンをつける %>
+              <a href="/event/<%= @event.id %>/event_menu" class="ml-2 text-black-20 text-fz-18px"><i class="fas fa-bars"></i></a>
+            <% elsif controller.controller_name == 'events_details' && controller.action_name == 'show' && user_signed_in? && current_user.can_report_circle(@event.circle_id) %>
+              <%# 【６】一般ユーザーがイベントページからサークルを通報できる導線をつける %>
+              <a href="/circle/<%= @event.circle_id %>/report_to_administrator_menu?event_id=<%= @event.id %>" class="ml-2 text-black-20 text-fz-18px"><img src="/aseets2019/img/icon_reader.svg" alt=""></a>
+            <% elsif controller.controller_name == 'event' && controller.action_name == 'report_show' && user_signed_in? && (@is_manager || @is_my_report) %>
+              <%# 【７】レポートページからサークル管理者やレポート作成者はレポートを削除できるようにする %>
+              <a href="/event/<%= @event.id %>/report_menu/<%= @event_report.id %>" class="ml-2 text-black-20 text-fz-18px"><i class="fas fa-bars"></i></a>
+            <% elsif controller.controller_name == 'event' && controller.action_name == 'report_show' && user_signed_in? && current_user.can_report_circle(@event.circle_id) %>
+              <%# 【８】レポートページからサークルを通報できるようにする %>
+              <a href="/circle/<%= @event.circle_id %>/report_to_administrator_menu" class="ml-2 text-black-20 text-fz-18px"><img src="/aseets2019/img/icon_reader.svg" alt=""></a>
+            <% elsif controller.controller_name == 'blogs' && controller.action_name == 'show' && user_signed_in? && current_user.can_report_circle(@blog.circle_id) %>
+              <%# 【９】ブログページからサークルを通報できるようにする %>
+              <a href="/circle/<%= @blog.circle_id %>/report_to_administrator_menu" class="ml-2 text-black-20 text-fz-18px"><img src="/aseets2019/img/icon_reader.svg" alt="">
+              </a>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</header>
+
+<%
+=begin%>
+ <script>
+$(function(){
+<% if user_signed_in? %>
+  get_unread_message_count();
+  setInterval(function () {
+    get_unread_message_count();
+  }, 29000);
+
+  get_unchecked_notification_count();
+<% end %>
+});
+
+function get_unread_message_count() {
+$.ajax({
+  type: "GET",
+  url: '/api/message/unread_message_count',
+  cache: false,
+  data: {
+  },
+  success: function (dt) {
+    if (dt != '0') {
+      $('.badge-replacement').addClass('badge--unread2');
+    } else {
+      $('.badge-replacement').removeClass('badge--unread2');
+    }
+  }
+});
+}
+
+function get_unchecked_notification_count() {
+$.ajax({
+  type: "GET",
+  url: '/api/notification/unchecked_notification_count',
+  cache: false,
+  data: {
+  },
+  success: function (dt) {
+    if (dt != '0') {
+      $('.badge-notification-replacement').addClass('badge--unchecked2');
+    } else {
+      $('.badge-notification-replacement').removeClass('badge--unchecked2');
+    }
+  }
+});
+}
+</script> 
+<%
+=end%>

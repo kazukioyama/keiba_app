@@ -1,0 +1,68 @@
+
+<main class="bg-gray min-height-100vh">
+  <hr class="m-0 top-bottom">
+
+  <div class="container col-md-8 col-lg-6">
+    <h1 class="h5--18px text-center mt-3 mb-3">新規登録</h1>
+    <p class="text-fz-14px text-fw-bold text-black-50 mb-2">メールアドレスで登録</p>
+  </div>
+  <div class="col-md-6 col-lg-6 p-0 container">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { class: "mb-4" }) do |f| %>
+    <%
+=begin%>
+ <input id="invite_activation_key" name="user[invite_activation_key]" type="hidden" value="<%=@invite_activation_key %>" /> 
+<%
+=end%>
+    <%= f.text_field :email, autofocus: true, class: 'form-custom form-control mb-0 rounded-0 border-0 pt-4_5 pb-4_5', placeholder: "メールアドレス" %>
+    <hr class="m-0 top-bottom">
+    <%= f.password_field :password, autocomplete: "off", class: 'form-custom form-control mb-2 rounded-0 border-0 pt-4_5 pb-4_5', placeholder: "パスワード"%>
+    <% if devise_mapping.rememberable? -%>
+      <%= f.hidden_field :remember_me, value: "1" %>
+    <% end -%>
+    <%
+=begin%>
+ <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-custom form-control mb-2 rounded-0 border-0 pt-4_5 pb-4_5', placeholder: "パスワードの確認"%> 
+<%
+=end%>
+    <% if devise_mapping.rememberable? -%>
+      <%= f.hidden_field :remember_me, value: "1" %>
+    <% end -%>
+    <div class="h-20px"></div>
+    <%= f.submit "登録", class: 'btn text-center text-white d-block jra-bg-color mx-auto mb-1 text-fw-bold w-50' %>
+  <% end %>
+
+    <%
+=begin%>
+ <div class="container-slim login-btn-wrap mx-auto">
+      <p class="text-center text-fw-bold login-titleborder text-fz-14px text-black-50">または</p>
+      <% unless @is_disable_google_login_btn %>
+      <div class="btn-login-google mb-3">
+        <%= link_to 'Sign in with Google', 'https://tunagate.com' + user_google_omniauth_authorize_path(origin: "#{@service_protocol_host}"), class: 'd-block text-ff-robot' %>
+      </div>
+      <% end %>
+
+      <div class="btn-login-facebook mb-4_25">
+        <%= link_to('https://tunagate.com' + user_facebook_omniauth_authorize_path(origin: "#{@service_protocol_host}"), class: 'd-block text-ff-robot text-white') do %>
+            <span class=""><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 216" class="_5h0m btn-login-fb__svg" color="#FFFFFF">
+                <path fill="#FFFFFF" d="
+            M204.1 0H11.9C5.3 0 0 5.3 0 11.9v192.2c0 6.6 5.3 11.9 11.9
+            11.9h103.5v-83.6H87.2V99.8h28.1v-24c0-27.9 17-43.1 41.9-43.1
+            11.9 0 22.2.9 25.2 1.3v29.2h-17.3c-13.5 0-16.2 6.4-16.2
+            15.9v20.8h32.3l-4.2 32.6h-28V216h55c6.6 0 11.9-5.3
+            11.9-11.9V11.9C216 5.3 210.7 0 204.1 0z"></path>
+              </svg></span>
+            Continue with Facebook
+        <% end %>
+      </div>
+    </div> 
+<%
+=end%>
+
+  </div>
+
+  <div class="container col-md-8 col-lg-6">
+    <hr class="mb-3_5">
+    <a href="/users/sign_in" class="text-center link--green d-block text-fz-14px mb-2 text-fw-bold">アカウントをお持ちの方はこちら（ログイン）</a>
+  </div>
+
+</main>
