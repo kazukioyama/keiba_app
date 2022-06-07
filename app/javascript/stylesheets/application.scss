@@ -435,3 +435,66 @@ a {
 .jra-bg-color {
  background-color: #268300 !important;
 }
+
+
+.text-fw-bold {
+  /* font-family: HiraKakuProN-W6; */
+  font-weight: bold;
+}
+.text-fw-normal {
+  /* font-family: HiraKakuProN-W3; */
+  font-weight: normal;
+}
+
+
+.nav-link--gray-soft {
+  color: rgba(0, 0, 0, .54);
+}
+
+.line-4 {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.line-3 {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+
+.hov--default {
+  color: #000;
+}
+
+.hov--default:hover p {
+  /* color: #2292a4; */
+}
+
+.hov--default:hover {
+  color: #000;
+  text-decoration: none;
+}
+
+.search-result-event-title {
+  /* font-family: 'Noto Sans'; */
+  font-style: normal;
+  font-weight: bold;
+  font-size: 13.1607px;
+  line-height: 150%;
+  text-align: justify;
+  letter-spacing: 0.025em;
+  color: #222222;
+}
+@media (max-width: 575.98px) {
+  .search-result-event-title {
+    /* font-size: .8rem; */
+    font-size: 13.1607px;
+  }
+}
