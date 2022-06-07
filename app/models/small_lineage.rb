@@ -1,0 +1,2 @@
+class SmallLineage < ApplicationRecord
+end

@@ -1,0 +1,61 @@
+<main class="bg-white h-100">
+  <div class="bg-graydark2">
+    <div class="container col-md-8 col-lg-5 mt-4 p-0">
+      <img
+        src="/img/orfevre1.svg"
+        alt="sss"
+        class="adjust-box-inner lazyload w-100 object-fit-cover"
+      />
+    </div>
+  </div>
+
+  <div class="container col-lg-8">
+    <div class="bg-white row">
+      <%# ========== タイトル ========== %>
+      <h1 class="text-fz-18px text-fw-bold text-left pb-1 pt-5">
+        <%= "オルフェーブル" %>
+      </h1>
+      <hr>
+
+      <%# ========== 基本情報 ========== %>
+      <div class="pb-3">
+        <span class="mt-4 mb-1 fw-bold fz-13px d-block text-body">馬名</span>
+        <span class="text-black-444 text-fz-11px d-block mb-1">オルフェーブル</span>
+
+        <span class="mt-4 mb-1 fw-bold text-fz-13px d-block text-body">系統</span>
+        <span class="text-black-444 text-fz-11px d-block mb-1">サンデーサイレンス系</span>
+
+        <span class="mt-4 mb-1 fw-bold text-fz-13px d-block text-body">血統</span>
+        <span class="text-black-444 text-fz-11px d-block mb-1">仮画像</span>
+
+        <span class="mt-4 mb-1 fw-bold text-fz-13px d-block text-body">生年月日</span>
+        <span class="text-black-444 text-fz-11px d-block mb-1">2008年5月14日</span>
+
+        <span class="mt-4 mb-1 fw-bold text-fz-13px d-block text-body">調教師</span>
+        <span class="text-black-444 text-fz-11px d-block mb-1">池江泰寿</span>
+
+        <span class="mt-4 mb-1 fw-bold text-fz-13px d-block text-body">馬主</span>
+        <span class="text-black-444 text-fz-11px d-block mb-1">サンデーレーシング</span>
+
+        <span class="mt-4 mb-1 fw-bold text-fz-13px d-block text-body">主な種牡馬</span>
+        <span class="text-black-444 text-fz-11px d-block mb-1">LINE交換、個人情報の取得・交換、外部サービスへの誘導は禁止です。詳しくは<a href="https://tunagate.com/article/5bd01c8f"  target="_blank">こちら</a>をご覧ください。</span>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+</main>
+
+<%# ----- プラン選択時にモーダルを消す ----- %>
+<script>
+  $(function(){
+    $('.hideFixedButtonModal').on('click', function(){
+      $('#fixedButtonModal').removeClass('modal');
+    });
+    $('.submit-modal').on('hidden.bs.modal', function (e) {
+      $('#fixedButtonModal').addClass('modal');
+    });
+  })
+</script>

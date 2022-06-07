@@ -1,0 +1,2 @@
+class LargeLineage < ApplicationRecord
+end

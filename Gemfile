@@ -17,6 +17,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'pry-rails'
+gem 'react-rails'
 
 
 group :development, :test do

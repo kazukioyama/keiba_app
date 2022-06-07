@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :horses
+
   resources :settings
 
   devise_for :users, controllers: {
@@ -15,4 +17,9 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     confirmations: 'users/confirmations',
   }
+
+  namespace :api, { format: 'json' } do
+    namespace :v1 do
+    end
+  end
 end

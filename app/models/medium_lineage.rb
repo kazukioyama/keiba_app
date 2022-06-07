@@ -1,0 +1,2 @@
+class MediumLineage < ApplicationRecord
+end
