@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   resources :horses
 
+  resources :stalions
+
   resources :settings
 
   devise_for :users, controllers: {
