@@ -17,8 +17,11 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'pry-rails'
+gem 'pry-doc'    # rubyのソースコード(メソッド)を表示できるgem ($ show-source クラス名#メソッド名)
 gem 'react-rails'
-
+gem 'faraday'
+gem 'nokogiri' #スクレイピング用のgem
+gem 'selenium-webdriver' #スクレイピング用のgem
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
