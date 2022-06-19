@@ -1,0 +1,49 @@
+<main class="bg-white h-100">
+  <div class="bg-graydark2">
+    <div class="container col-md-8 col-lg-5 mt-4 p-0">
+      <img
+        src="/img/chukyo_padock.svg"
+        alt="sss"
+        class="adjust-box-inner lazyload w-100 object-fit-cover"
+      />
+    </div>
+  </div>
+
+  <div class="container col-lg-8">
+    <div class="bg-white row">
+      <%# ========== タイトル ========== %>
+      <h1 class="text-fz-18px text-fw-bold text-left pb-1 pt-5">
+        <%= "中京競馬場" %>
+      </h1>
+      <hr>
+
+      <%# ========== 基本情報 ========== %>
+      <div class="pb-3">
+        <a class="mt-4 mb-2 fw-bold fz-13px d-block text-body">コース種目</a>
+        <a href=<%= '/courses/1/events/1' %> class="text-black-444 text-fz-11px d-block mb-1">芝1200</a>
+        <a href=<%= '/courses/1/events/2' %> class="text-black-444 text-fz-11px d-block mb-1">芝1600</a>
+        <a href=<%= '/courses/1' %> class="text-black-444 text-fz-11px d-block mb-1">芝1800</a>
+        <a href=<%= '/courses/1' %> class="text-black-444 text-fz-11px d-block mb-1">芝1900</a>
+        <a href=<%= '/courses/1' %> class="text-black-444 text-fz-11px d-block mb-1">ダ1200</a>
+        <a href=<%= '/courses/1' %> class="text-black-444 text-fz-11px d-block mb-1">ダ1400</a>
+        <a href=<%= '/courses/1' %> class="text-black-444 text-fz-11px d-block mb-1">ダ1600</a>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+</main>
+
+<%# ----- プラン選択時にモーダルを消す ----- %>
+<script>
+  $(function(){
+    $('.hideFixedButtonModal').on('click', function(){
+      $('#fixedButtonModal').removeClass('modal');
+    });
+    $('.submit-modal').on('hidden.bs.modal', function (e) {
+      $('#fixedButtonModal').addClass('modal');
+    });
+  })
+</script>

@@ -7,16 +7,6 @@
           alt={eventItem.title}
           class="rounded-top w-100 object-fit-cover adjust-box-inner lazyloaded"
         />
-        <%
-=begin%>
- {eventItem.is_full ?
-          <img data-src='/aseets2019/img/event/img-event_sold_out.svg' style={{marginLeft: '0px', height: '60%'}} class='lazyload event-top-bosyu position-absolute rounded' />
-          : eventItem.is_application_ended ?
-            <img data-src='/aseets2019/img/event/img-event_end.svg' style={{marginLeft: '0px', height: '60%'}} class='lazyload event-top-bosyu position-absolute rounded' />
-          : ''
-        }
-<%
-=end%>
       </div>
       <div class="row px-2">
         <p class="text-fw-bold text-center mt-1 mb-1 line-3">

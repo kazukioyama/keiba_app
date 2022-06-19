@@ -7,31 +7,10 @@
         <li class="text-center"><p><a class="top__tabbar2<%= controller.controller_name == 'eatings' ? ' active' : '' %>" href="/eatings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">過去の買いレース</a></p></li>
         <li class="text-cente"><p><a class="top__tabbar2<%= controller.controller_name == 'horses' ? ' active' : '' %>" href="/horses<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">競走馬一覧</a></p></li>
         <li class="text-center"><p><a class="top__tabbar2<%= controller.controller_name == 'stalions' ? ' active' : '' %>" href="/stalions<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">種牡馬一覧</a></p></li>
+        <li class="text-center"><p><a class="top__tabbar2<%= controller.controller_name == 'courses' ? ' active' : '' %>" href="/courses<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">コース一覧</a></p></li>
         <li class="text-center"><p><a class="top__tabbar2<%= controller.controller_name == 'csv' ? ' active' : '' %>" href="/csv<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">CSV入力</a></p></li>
         <li class="text-center"><p><a class="top__tabbar2<%= controller.controller_name == 'settings' ? ' active' : '' %>" href="/settings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>" style="color: #616161;">設定</a></p></li>
       </ul>
     </div>
   </div>
 <% end %>
-
-<%
-=begin%>
- <div class="nav_top__tabbar d-block d-md-none">
-  <div class="container col-lg-8 mb-0">
-    <ul class="list-unstyled d-flex scrollable-list mb-0">
-      <li class="text-center top__tabbar px-2<%= active == 'home' ? ' active' : '' %>"><p><a href="/">ホーム</a></p></li>
-      <li class="text-center top__tabbar px-2<%= active == 'search' ? ' active' : '' %>"><p><a href="/search">イベント</a></p></li>
-      <li class="text-center top__tabbar px-2<%= active == 'tunagate-official' ? ' active' : '' %>"><p><a href="/tunagate-official<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">公式イベント</a></p></li>
-      <li class="text-center top__tabbar px-2<%= active == 'circle' ? ' active' : '' %>"><p><a href="/search/<%= @my_pref.present? ? @my_pref.pref_key : 'all' %>?event_condition=circle">メンバー募集</a></p></li>
-
-      <li class="text-center top__tabbar px-2<%= active == 'sportsactivity' ? ' active' : '' %>"><p><a href="/sportsactivity<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">体をうごかす</a></p></li>
-      <li class="text-center top__tabbar px-2<%= active == 'outings' ? ' active' : '' %>"><p><a href="/outings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">みんなで行く</a></p></li>
-      <li class="text-center top__tabbar px-2<%= active == 'eatings' ? ' active' : '' %>"><p><a href="/eatings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">みんなで食べる</a></p></li>
-      <li class="text-center top__tabbar px-2<%= active == 'creatings' ? ' active' : '' %>"><p><a href="/creatings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">みんなで創る</a></p></li>
-      <li class="text-center top__tabbar px-2<%= active == 'playings' ? ' active' : '' %>"><p><a href="/playings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">みんなで遊ぶ</a></p></li>
-      <li class="text-center top__tabbar px-2<%= active == 'talkings' ? ' active' : '' %>"><p><a href="/talkings<%= @my_pref.present? ? "/#{@my_pref.pref_key}" : '' %>">みんなで語る</a></p></li>
-    </ul>
-  </div>
-</div>
-<%
-=end%>
