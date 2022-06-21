@@ -154,6 +154,10 @@ a {
   }
 }
 
+.calendar a {
+  color: #666666;
+}
+
 /* top */
 .nav_top__tabbar {
   /* width: 412px; */
@@ -213,12 +217,12 @@ a {
 
 .top__tabbar:hover{
   background: #FFFFFF;
-  color: #616161 !important;
+  color: #998181 !important;
 }
 
 .top__tabbar2.active {
   background-color: #FFFFFF;
-  color: #767676 !important;
+  color: #268300 !important;
 }
 
 

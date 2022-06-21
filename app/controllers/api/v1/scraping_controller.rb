@@ -2,9 +2,9 @@ class Api::V1::ScrapingController < ApplicationController
   # before_action :set_admin
   BASE_URL = 'https://race.netkeiba.com'
 
-  def fetch_race_date_info
+  def fetch_daily_race_data
     race_date_str = params[:race_date]
-    req_url = "https://race.netkeiba.com/top/race_list.html?kaisai_date=#{race_date_str}&kaisai_id=2022070403&current_group=1020220611#racelist_top_a"
+    req_url = BASE_URL + "/top/race_list.html?kaisai_date=#{race_date_str}"
 
     options = Selenium::WebDriver::Chrome::Options.new
     options.add_argument('--headless')
