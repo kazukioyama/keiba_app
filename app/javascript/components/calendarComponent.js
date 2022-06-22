@@ -9,29 +9,29 @@ const calendarComponent= ({
   props
 }) => {
 
-  // const [targetDate, setTargetDate] = useState(new Date()); //setStateでinfo.startを入れるとなぜか無限ループエラーになってしまうので
+  const [targetDate, setTargetDate] = useState(new Date());
   const [events, setEvents] = useState([{ title: "3回 東京 3日目", date: '2022-06-21', color: 'green' }]);
-  let date;
 
-  //setStateでinfo.startを入れるとなぜか無限ループエラーになってしまうのでコメントアウト
-  // useEffect(() => {
-  //   fetchDailyRaceData();
-  // }, [date]);
+  useEffect(() => {
+    console.log(targetDate);
+    fetchDailyRaceData();
+  }, [targetDate]);
 
-  const fetchDailyRaceData = () => {
-    const targetDateStr = dayjs(date).format('YYYYMMDD');
+  const fetchDailyRaceData = useCallback(() => {
+    const targetDateStr = dayjs(targetDate).format('YYYYMMDD');
+    console.log('ab')
     // 土or日曜のみ実行
-    if (date.getDay() === 0 || date.getDay() === 6) {
+    if (targetDate.getDay() === 0 || targetDate.getDay() === 6) {
       axios
       .get(`/api/v1/scraping/daily_race_data/${targetDateStr}`)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         setEvents([{ title: "取得できたお", date: '2022-06-19', color: 'green' }]);
       });
     } else {
-      return
+      return;
     };
-  };
+  }, [targetDate]);
 
   return (
     <div class="calendar">
@@ -44,10 +44,10 @@ const calendarComponent= ({
           end: 'today'
         }}
         events={(info, successCallback) => {
-          // setTargetDate(info.start);
-          date = info.start; //setStateでinfo.startを入れるとなぜか無限ループエラーになるので
-          console.log(date);
-          fetchDailyRaceData();
+          setTargetDate(info.start);
+          console.log(info.start)
+          console.log('a')
+          // fetchDailyRaceData(targetDate);
           successCallback(events);
         }}
       />

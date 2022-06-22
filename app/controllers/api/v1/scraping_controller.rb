@@ -21,8 +21,10 @@ class Api::V1::ScrapingController < ApplicationController
       race_category = race_data_node.find_element(:class_name, "RaceList_DataTitle").text
       race_data_item_node_list = race_data_node.find_elements(:class_name, "RaceList_DataItem")
       race_id_list = []
+      # binding.pry
       race_data_item_node_list.each do |item_node|
         race_name = item_node.find_element(:class_name, "RaceList_ItemTitle").text
+        race_start_at_str, race_course_event, number_of_starters_str = item_node.find_element(:class_name, "RaceData").text.split(' ')
         race_url = item_node.find_element(:tag_name, "a").attribute('href')
         race_id = race_url.slice(/(?<=race_id=)(.*)(?=&rf=race_list)/)
         race_id_list << {race_name: race_name, race_id: race_id}
