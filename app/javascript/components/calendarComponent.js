@@ -8,33 +8,29 @@ import dayjs from 'dayjs';
 const calendarComponent= ({
   props
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [targetDate, setTargetDate] = useState(new Date());
-  const [events, setEvents] = useState([{ title: "3回 東京 3日目", date: '2022-06-21', color: 'green' }]);
-
-  useEffect(() => {
-    console.log(targetDate);
-    fetchDailyRaceData();
-  }, [targetDate]);
-
-  const fetchDailyRaceData = useCallback(() => {
-    const targetDateStr = dayjs(targetDate).format('YYYYMMDD');
-    console.log('ab')
-    // 土or日曜のみ実行
-    if (targetDate.getDay() === 0 || targetDate.getDay() === 6) {
-      axios
-      .get(`/api/v1/scraping/daily_race_data/${targetDateStr}`)
-      .then((res) => {
-        console.log(res.data);
-        setEvents([{ title: "取得できたお", date: '2022-06-19', color: 'green' }]);
-      });
-    } else {
-      return;
-    };
-  }, [targetDate]);
+  // const fetchDailyRaceData = useCallback((startDate) => {
+  //   const targetDateStr = dayjs(startDate).format('YYYYMMDD');
+  //   // 土or日曜のみ実行
+  //   if (startDate.getDay() === 0 || startDate.getDay() === 6) {
+  //     axios
+  //     .get(`/api/v1/scraping/daily_race_data/${targetDateStr}`)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setEvents([{ title: "取得できたお", date: '2022-06-19', color: 'green' }]);
+  //       return [{ title: "取得できたお", date: '2022-06-19', color: 'green' }];
+  //       // setIsFirstFetch(false);
+  //     });
+  //   } else {
+  //     // setEvents([{ title: "取得できたお", date: '2022-06-19', color: 'green' }]);
+  //     setIsFirstFetch(false);
+  //     return [];
+  //   };
+  // }, [targetDate]);
 
   return (
-    <div class="calendar">
+    <div className="calendar">
       <FullCalendar
         plugins={[dayGridPlugin, listPlugin]}
         initialView="listDay"
@@ -43,13 +39,34 @@ const calendarComponent= ({
           center: 'prev next',
           end: 'today'
         }}
+        // titleFormat={(date) => {
+        //   console.log(date)
+        // }}
+        noEventsContent={'レース未開催日'}
         events={(info, successCallback) => {
-          setTargetDate(info.start);
           console.log(info.start)
-          console.log('a')
-          // fetchDailyRaceData(targetDate);
-          successCallback(events);
+          const startDate = info.start;
+          // 土or日曜のみ実行
+          if (startDate.getDay() === 0 || startDate.getDay() === 6) {
+            // setIsLoading(true);
+            axios
+            .get(`/api/v1/scraping/daily_race_data_for_fullcalendar/${dayjs(startDate).format('YYYYMMDD')}`)
+            .then((res) => {
+              console.log(res.data);
+              // setIsLoading(false);
+              successCallback(res.data);
+            })
+            .catch((error) => {
+              alert(error);
+            });
+          };
         }}
+        eventClick={(e) => {
+          window.open(`https://race.netkeiba.com/race/shutuba.html?race_id=${e.event.extendedProps.raceId}&rf=race_list`);
+        }}
+        // eventMouseEnter={(info) => {
+        //   console.log(info.event.title)
+        // }}
       />
     </div>
   )

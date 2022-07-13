@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   namespace :api, { format: 'json' } do
     namespace :v1 do
       get 'scraping/daily_race_data/:race_date' => 'scraping#fetch_daily_race_data'
+      get 'scraping/daily_race_data_for_fullcalendar/:race_date' => 'scraping#fetch_daily_race_data_for_fullcalendar'
       get 'scraping/race_info/:race_id' => 'scraping#fetch_race_info'
     end
   end

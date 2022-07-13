@@ -37,6 +37,51 @@ class Api::V1::ScrapingController < ApplicationController
     render json: race_date_info
   end
 
+  def fetch_daily_race_data_for_fullcalendar
+    race_date_str = params[:race_date]
+    race_date = Date.strptime(race_date_str, '%Y%m%d')
+    req_url = BASE_URL + "/top/race_list.html?kaisai_date=#{race_date_str}"
+
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+
+    driver = Selenium::WebDriver.for :chrome, options: options
+
+    driver.navigate.to req_url
+
+    race_list = []
+    race_data_node_list = driver.find_elements(:class_name, "RaceList_DataList")
+    color_list = ['green', 'yellow', 'red']
+    race_data_node_list.each_with_index do |race_data_node, i|
+      race_category = race_data_node.find_element(:class_name, "RaceList_DataTitle").text.slice(/ .+ /).delete(' ')
+      race_data_item_node_list = race_data_node.find_elements(:class_name, "RaceList_DataItem")
+      race_data_item_node_list.each do |item_node|
+        race_number = item_node.find_element(:class_name, "Race_Num").text
+        race_name = item_node.find_element(:class_name, "RaceList_ItemTitle").text
+        race_start_at_str, race_course_event, number_of_starters_str = item_node.find_element(:class_name, "RaceData").text.split(' ')
+        race_url = item_node.find_element(:tag_name, "a").attribute('href')
+        race_id = race_url.slice(/(?<=race_id=)(.*)(?=&rf=race_list)/)
+        # race_list << {"title": "#{race_category} #{race_name}", "start": "#{race_date.strftime('%Y-%m-%d')}", "end": "#{race_date.strftime('%Y-%m-%d')}"}
+        race_list << {
+          "title": "【#{race_category}(#{race_number})】 #{race_name} (#{race_course_event} #{number_of_starters_str})",
+          "start": "2022-07-10",
+          "end": "2022-07-10",
+          "startTime": race_start_at_str,
+          "color": color_list[i],
+          "raceId": race_id
+        }
+      end
+      # race_date_info << {race_category: race_category, race_list: race_id_list}
+    end
+
+    # binding.pry
+    driver.quit
+
+    render json: race_list
+  end
+
   def fetch_race_info
 
     date = DateTime.new(2022, 6, 12, 12, 30, 45).strftime("%Y%m%d")
