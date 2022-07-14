@@ -4,30 +4,13 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import axios from "axios";
 import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
+dayjs.locale('ja');
 
 const calendarComponent= ({
   props
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  // const fetchDailyRaceData = useCallback((startDate) => {
-  //   const targetDateStr = dayjs(startDate).format('YYYYMMDD');
-  //   // 土or日曜のみ実行
-  //   if (startDate.getDay() === 0 || startDate.getDay() === 6) {
-  //     axios
-  //     .get(`/api/v1/scraping/daily_race_data/${targetDateStr}`)
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setEvents([{ title: "取得できたお", date: '2022-06-19', color: 'green' }]);
-  //       return [{ title: "取得できたお", date: '2022-06-19', color: 'green' }];
-  //       // setIsFirstFetch(false);
-  //     });
-  //   } else {
-  //     // setEvents([{ title: "取得できたお", date: '2022-06-19', color: 'green' }]);
-  //     setIsFirstFetch(false);
-  //     return [];
-  //   };
-  // }, [targetDate]);
+  // const [isLoading, setIsLoading] = useState(false);
 
   return (
     <div className="calendar">
@@ -39,16 +22,17 @@ const calendarComponent= ({
           center: 'prev next',
           end: 'today'
         }}
-        // titleFormat={(date) => {
-        //   console.log(date)
-        // }}
-        noEventsContent={'レース未開催日'}
+        titleFormat= {(info) => {
+          return dayjs(info.date.marker).format('YYYY年M月DD日(ddd)');
+        }}
+        noEventsContent={''}
         events={(info, successCallback) => {
           console.log(info.start)
           const startDate = info.start;
           // 土or日曜のみ実行
           if (startDate.getDay() === 0 || startDate.getDay() === 6) {
             // setIsLoading(true);
+            alert('fetchng...');
             axios
             .get(`/api/v1/scraping/daily_race_data_for_fullcalendar/${dayjs(startDate).format('YYYYMMDD')}`)
             .then((res) => {
@@ -59,6 +43,8 @@ const calendarComponent= ({
             .catch((error) => {
               alert(error);
             });
+          } else {
+            alert('対象日はレース未開催日です');
           };
         }}
         eventClick={(e) => {
